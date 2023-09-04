@@ -200,8 +200,8 @@ var (
       ```go
       func main(){
       	for i, v := range pow {
-      	fmt.Printf("2**%d = %d\n", i, v)
-          }
+      	    fmt.Printf("2**%d = %d\n", i, v)
+        }
       }
       ```
     - Remember, you can skip the index or value by assigning it to `_`.
