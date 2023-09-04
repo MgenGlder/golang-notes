@@ -50,7 +50,7 @@ Notes for golang
   ```
 
 - If you omit the condition, it loops forever.
-  - For and if statements are allowed to start with a short statement to execute before the condition
+  - For and if statements are allowed to start with a short assignment statement to execute before the condition
     ```go
     if v := math.Pow(x, n); v < lim {
     	return v
@@ -124,7 +124,7 @@ Notes for golang
     func main() {
     	v := Vertex{1, 2}
     	p := &v
-    	p.X 1e9
+    	p.X = 1e9
     	fmt.Println(v)
     }
     ```
