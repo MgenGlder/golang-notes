@@ -274,20 +274,20 @@ var (
   - Loop over words and count the number of words
     ```go
     func WordCount(s string) map[string]int {
-    fields := strings.Fields(s)
-    holderMap := make(map[string]int)
+        fields := strings.Fields(s)
+        holderMap := make(map[string]int)
     
-    for _, v := range fields {
-    	_, ok := holderMap[v]
-    	if ok {
-    		holderMap[v] += 1
-    	} else {
-    	holderMap[v] = 1	
-    	}
-    }
-    	fmt.Println(holderMap)
-    
-    	return holderMap
+        for _, v := range fields {
+            _, ok := holderMap[v]
+            if ok {
+                holderMap[v] += 1
+            } else {
+                holderMap[v] = 1	
+            }
+        }
+        fmt.Println(holderMap)
+        
+        return holderMap
     }	
     ```
 
@@ -364,7 +364,7 @@ var (
     }
     ```
 
-  - Methods a re functions with a receiver argument.
+  - Methods are functions with a receiver argument.
   - You can declare a method on non-struct types, too.
     - In this example we see a numeric type `MyFloat` with an `Abs` method.
     - You can only declare a method with a receiver whose type is defined in the same package as the method. You cannot declare a method with a receiver whose type is defined in another package (which includes the built-in types such as `int`).
@@ -549,7 +549,7 @@ var (
   ```
 - Goroutines - a lightweight thread managed by the Go runtime.
   - `go f(x, y, z)`
-    starts a new grouting running 
+    starts a new goroutine running 
     `f(x, y, z)`
   - The evaluation of `f`,`x`,`y`, and `z` happens in the current goroutine and the execution of `f` happens in the new coroutine.
   - Goroutines run in the same address space, so access to shared memory must be synchronized. The `sync` package provides useful primitives, although you won’t need them much in Go as there are other primitives.
@@ -561,6 +561,32 @@ var (
     `ch := make(chan int)`
   - Channels can be *buffered*. Provide the buffer length as the second argument to `make` to initialize a buffered channel:
     `ch := make(chan int, 100)`
-  - A sender the `close` a channel to indicate that no more values will be sent. Receivers can test whether a channel has been closed by assigning a second parameter to the receive expression after:
+  - A sender can use the `close` function in a channel to indicate that no more values will be sent. Receivers can test whether a channel has been closed by assigning a second parameter to the receive expression after:
     `v, ok := <- ch`.
   - If `ok` is `false` there are no more values to receive and the channel is closed.
+
+- Type Embeddings
+    - Go prefers composition over inheritance, and recommends implementing it using type embeddings.
+        ```go
+        import "net/http"
+
+        func main() {
+            type P = *bool
+            type M = map[int]int
+            var x struct {
+                string // a named non-pointer type
+                error  // a named interface type
+                *int   // an unnamed pointer type
+                P      // an alias of an unnamed pointer type
+                M      // an alias of an unnamed type
+
+                http.Header // a named map type
+            }
+            x.string = "Go"
+            x.error = nil
+            x.int = new(int)
+            x.P = new(bool)
+            x.M = make(M)
+            x.Header = http.Header{}
+        }
+        ```
