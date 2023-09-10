@@ -44,7 +44,24 @@ For example: `go install github.com/rakyll/hey@latest`.
 You don't have to download binaries, the source code is a popular way to distribute packages.
 
 ## Formatting Code
-One of the chief design goals for Go was to create a language that allowed you to write code efficiently. This meant having simple syntax and a fast compiler. It also led Go's authors to reconsider code formatting. Most languages allow a great deal of flexibility on how code is laid out.[^1]
+One of the chief design goals for Go was to create a language that allowed you to write code efficiently. This meant having simple syntax and a fast compiler. It also led Go's authors to reconsider code formatting. Most languages allow a great deal of flexibility on how code is laid out. Go does not. This simplifies the compiler and allows the creation of some clever tools for generating code.[^1]
+
+Go development tools comes with `go fmt` which automatically formats code to match the standard format (e.g. fixing up whitespace issues, lining up fields, ensuring proper spacing everywhere).
+
+There's an enhanced version of `go fmt` called `goimports` that also cleans up your import statements.
+
+You can download `goimports` like so:
+
+`go install golang.org/x/tools/cmd/goimports@latest` and then run it with the following:
+
+`goimports -l -w .`
+
+Note:
+
+No semicolons are necessary in Go because the compiler automatically adds then during compilation.
+
+## Linting and Vetting
+
 
 It's idiomatic to use `var x byte = 20` instead of `x := byte(20)`.
 
